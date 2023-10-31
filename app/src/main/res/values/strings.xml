@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">DocTruyen</string>
+
+    <!--    api-->
+    <string name="api_error">Lỗi kết nối server</string>
+
+    <!--    login-->
+    <string name="login_continue">Đăng nhập ngay</string>
+    <string name="login">Đăng Nhập</string>
+    <string name="login_user_name">Tài khoản</string>
+    <string name="login_password">Mật khẩu</string>
+    <string name="login_success">Đăng nhập thành công</string>
+    <string name="login_fail">Thông tin đăng nhập không chính xác</string>
+    <string name="login_error_empty">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="regist">Bạn chưa có tài khoản? Đăng kí</string>
+
+    <!--    Regist-->
+    <string name="regist_now">Đăng kí tài khoản</string>
+    <string name="gmail">Gmail</string>
+    <string name="userName">Username</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="confirm">Xác Nhận</string>
+    <string name="empty_userName">Vui lòng nhập tên đăng nhập</string>
+    <string name="empty_email">Vui lòng nhập email</string>
+    <string name="not_math_password">Mật khẩu không trùng khớp</string>
+    <!--Home-->
+    <string name="rank">Bảng Xếp Hạng</string>
+    <string name="hot_story">Truyện Hot</string>
+    <string name="float_story">Truyện mới nhất</string>
+    <string name="text_story">Truyện tiên hiệp</string>
+    <string name="exit">Bấm trở lại 2 lần để thoát</string>
+    <string name="wifi_check">Bật kết nối mạng để khám phá truyện ngay nhé !</string>
+
+    <!--    review fragment-->
+    <string name="overview">Tóm tắt nội dung:</string>
+    <string name="date_public">Ngày tạo:</string>
+    <string name="status">Trạng thái:</string>
+    <string name="category">Thể loại:</string>
+    <string name="rate">Đánh giá:</string>
+    <string name="comment">Bình luận của người đọc:</string>
+
+    <!--    story fragment-->
+    <string name="recommend">Truyện đề xuất</string>
+    <string name="novel">Truyện tiểu thuyết</string>
+
+    <!--    favor fragment-->
+    <string name="favor_title">Truyện yêu thích</string>
+    <string name="favor_empty">Bạn chưa thêm truyện yêu thích </string>
+
+    <!--   read-->
+    <string name="chapter">Chương </string>
+    <string name="no_more_chapter">Hiện chưa có chương tiếp theo </string>
+
+    <!--    info fragment-->
+    <string name="introduce">Giới thiệu</string>
+    <string name="help">Liên hệ hỗ trợ</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="logout_notice">Thông báo</string>
+    <string name="yes_logout">Đồng ý</string>
+    <string name="no_logout">Thoát</string>
+    <string name="logout_message">Bạn có muốn đăng xuất không</string>
+    <string name="introduce_story">Giới thiệu truyện</string>
+    <string name="introduce_listChapter">Danh sách chương</string>
+    <string name="introduce_love">Yêu thích </string>
+    <string name="introduce_not_love">Bỏ Yêu thích </string>
+    <string name="introduce_add_comment">Thêm bình luận... </string>
+    <string name="comment_success">Bình luận thành công </string>
+    <string name="comment_fail">Bình luận không thành công </string>
+    <string name="reply_comment">Trả lời </string>
+    <string name="reply_title">Đang trả lời bình luận của  </string>
+
+</resources>
