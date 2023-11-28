@@ -13,6 +13,8 @@ import com.nkh.doctruyen.models.listChapter.ListChapterModel;
 import com.nkh.doctruyen.models.regist.RegistModel;
 import com.nkh.doctruyen.models.story.StoryModel;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -27,10 +29,14 @@ public interface ApiService {
     static OkHttpClient getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS) // Thời gian chờ kết nối
+                .readTimeout(30, TimeUnit.SECONDS) // Thời gian chờ đọc dữ liệu
+                .writeTimeout(30, TimeUnit.SECONDS) // Thời gian chờ ghi dữ liệu
+                .addInterceptor(interceptor)
+                .build();
         return client;
     }
-
 
     Gson gson = new GsonBuilder()
             .create();

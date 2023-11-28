@@ -9,6 +9,8 @@ import com.nkh.doctruyen.api.ApiService;
 import com.nkh.doctruyen.models.listChapter.Chapter;
 import com.nkh.doctruyen.models.listChapter.ListChapterModel;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +32,12 @@ public class ListChapterViewmodel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<ListChapterModel> call, Throwable t) {
-                Log.e("hung", "fail: "+t.getMessage());
-                errorMessage.setValue(t.getMessage());
+                if (t instanceof TimeoutException){
+                    errorMessage.setValue("Time Out");
+                }else {
+                    errorMessage.setValue(t.getMessage());
+                }
+
             }
         });
     }
