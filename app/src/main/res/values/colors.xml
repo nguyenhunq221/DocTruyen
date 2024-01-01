@@ -5,5 +5,6 @@
     <color name="hint">#7E7B7B</color>
     <color name="choose">#FDC9A2</color>
     <color name="main">#99D0FB</color>
+    <color name="text">#F32D32</color>
 
 </resources>

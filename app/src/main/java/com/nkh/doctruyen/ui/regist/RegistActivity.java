@@ -25,18 +25,18 @@ import com.nkh.doctruyen.ui.login.LoginActivity;
 
 public class RegistActivity extends AppCompatActivity {
     private ActivityRegistBinding binding;
-    RegistViewmodel viewmodel;
+    RegistViewmodel viewModel;
     String userName,password,confirmPassword,email;
     PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewmodel = new ViewModelProvider(this).get(RegistViewmodel.class);
+        viewModel = new ViewModelProvider(this).get(RegistViewmodel.class);
         preferenceManager = new PreferenceManager(RegistActivity.this);
         binding = ActivityRegistBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewmodel.success.observe(this, new Observer<Boolean>() {
+        viewModel.success.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 toHome();
@@ -44,21 +44,21 @@ public class RegistActivity extends AppCompatActivity {
             }
         });
 
-        viewmodel.id.observe(this, new Observer<String>() {
+        viewModel.id.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 saveIdUser(s);
             }
         });
 
-        viewmodel.user.observe(this, new Observer<String>() {
+        viewModel.user.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 saveUserName(s);
             }
         });
 
-        viewmodel.message.observe(this, new Observer<String>() {
+        viewModel.message.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 Snackbar.make(binding.getRoot(),s,Snackbar.LENGTH_SHORT).show();
@@ -79,18 +79,22 @@ public class RegistActivity extends AppCompatActivity {
         binding.registButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PasswordValidator passwordValidator = new PasswordValidator();
+
                 userName = binding.userName.getText().toString();
                 password = binding.password.getText().toString();
                 confirmPassword = binding.confirmPassword.getText().toString();
                 email = binding.gmail.getText().toString();
-                if (validate()){
-                    viewmodel.Regist(userName,password,email);
+                if (validate() && passwordValidator.validate(password)){
+                    viewModel.Regist(userName,password,email);
                 }else if (TextUtils.isEmpty(userName)){
                     Snackbar.make(binding.getRoot(),getString(R.string.empty_userName),Snackbar.LENGTH_SHORT).show();
                 }else if (TextUtils.isEmpty(email)){
                     Snackbar.make(binding.getRoot(),getString(R.string.empty_email),Snackbar.LENGTH_SHORT).show();
                 } else if (!password.equals(confirmPassword)){
                     Snackbar.make(binding.getRoot(),getString(R.string.not_math_password),Snackbar.LENGTH_SHORT).show();
+                }else {
+                    Snackbar.make(binding.getRoot(),getString(R.string.not_accept_password),Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
