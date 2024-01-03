@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/login_password"
                         android:inputType="textVisiblePassword"
-                        android:maxLength="10"
+                        android:maxLength="16"
                         android:maxLines="1"
                         android:textColorHint="@color/hint"
                         android:textSize="@dimen/_15ssp" />
@@ -201,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/confirm_password"
                         android:inputType="textPassword"
-                        android:maxLength="10"
+                        android:maxLength="16"
                         android:maxLines="1"
                         android:textColorHint="@color/hint"
                         android:textSize="@dimen/_15ssp" />
