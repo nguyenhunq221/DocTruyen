@@ -1,8 +1,8 @@
 package com.nkh.doctruyen.config;
 
 public class Config {
-    public static final String BASE_URL = "https://tttatodudi.000webhostapp.com";
+    public static final String BASE_URL = " http://144.202.88.201:5555/api/";
 
-    public static final String URL_IMAGE = "https://tttatodudi.000webhostapp.com/img/";
+    public static final String URL_IMAGE = "http://144.202.88.201:5555/storage/";
 
 }

@@ -55,7 +55,7 @@ public interface ApiService {
     );
 
     @POST(ApiPath.LOGIN)
-    Call<LoginModel> login(@Query("username") String username,
+    Call<LoginModel> login(@Query("email") String username,
                            @Query("password") String password
     );
 

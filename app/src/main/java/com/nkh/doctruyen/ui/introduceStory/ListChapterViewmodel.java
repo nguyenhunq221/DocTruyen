@@ -27,6 +27,7 @@ public class ListChapterViewmodel extends AndroidViewModel {
         ApiService.apiService.getListChapter(id).enqueue(new Callback<ListChapterModel>() {
             @Override
             public void onResponse(Call<ListChapterModel> call, Response<ListChapterModel> response) {
+                Log.e("hung999", "onResponse: "+ call.request());
                 listChapter.setValue(response.body().getDanhsach());
             }
 

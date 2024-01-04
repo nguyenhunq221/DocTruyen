@@ -43,8 +43,6 @@ public class HotStoryAdapter extends RecyclerView.Adapter<HotStoryAdapter.HotSto
 
         String urlImage = Config.URL_IMAGE + story.getImage();
 
-        Log.d("hunga", " urlImage " + urlImage);
-
         Glide.with(context)
                 .load(urlImage)
                 .centerCrop()
@@ -63,7 +61,6 @@ public class HotStoryAdapter extends RecyclerView.Adapter<HotStoryAdapter.HotSto
 
     @Override
     public int getItemCount() {
-        Log.e("hung", "mlist: "+mList.size() );
         return mList.size();
     }
 
