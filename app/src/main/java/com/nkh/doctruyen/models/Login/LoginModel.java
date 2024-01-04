@@ -3,32 +3,32 @@ package com.nkh.doctruyen.models.Login;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginModel {
-    private Boolean success;
-    private String username;
-    @SerializedName("id")
-    private String userId;
 
-    public String getUsername() {
-        return username;
+    private boolean status;
+    private String message;
+    private Data data;
+
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getMessage() {
+        return message;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public Boolean getSuccess() {
-        return success;
+    public Data getData() {
+        return data;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setData(Data data) {
+        this.data = data;
     }
 }

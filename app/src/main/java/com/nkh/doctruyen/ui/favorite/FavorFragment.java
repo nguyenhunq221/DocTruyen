@@ -1,7 +1,6 @@
 package com.nkh.doctruyen.ui.favorite;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +41,9 @@ public class FavorFragment extends Fragment {
         });
 
         String userName = preferenceManager.getString(Constant.PRE.saveUserName);
-        Log.e("hung", "username: "+userName );
-        viewModel.showStoryFollow(userName);
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+
+        viewModel.showStoryFollow(token,userName);
     }
 
     private void showListFollow(List<Story> stories) {
@@ -52,7 +52,7 @@ public class FavorFragment extends Fragment {
             binding.noResult.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.GONE);
         }else {
-            adapter = new HotStoryAdapter(stories, getActivity());
+            adapter = new HotStoryAdapter(stories, requireActivity());
             binding.rcvFollow.setAdapter(adapter);
             binding.progressBar.setVisibility(View.GONE);
         }

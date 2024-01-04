@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.nkh.doctruyen.Utils.PreferenceManager;
+import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.FragmentListChapterBinding;
 import com.nkh.doctruyen.models.listChapter.Chapter;
 import com.nkh.doctruyen.models.story.Story;
@@ -21,6 +24,7 @@ public class ListChapterFragment extends Fragment {
     private FragmentListChapterBinding binding;
     ListChapterAdapter adapter;
     private ListChapterViewmodel viewModel;
+    PreferenceManager preferenceManager;
     private static int id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,11 +32,11 @@ public class ListChapterFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(ListChapterViewmodel.class);
         binding = FragmentListChapterBinding.inflate(getLayoutInflater());
+        preferenceManager = new PreferenceManager(requireActivity());
         Bundle bundle = getArguments();
         if (bundle != null) {
             Story story = (Story) getArguments().getSerializable("key");
 
-            Log.e("hung99", "id: "+story.getId());
             id = Integer.parseInt(story.getId());
 
         }
@@ -49,8 +53,8 @@ public class ListChapterFragment extends Fragment {
                 showListChapter(chapters);
             }
         });
-
-        viewModel.showChapter(id);
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+        viewModel.showChapter(token,id);
 
     }
 

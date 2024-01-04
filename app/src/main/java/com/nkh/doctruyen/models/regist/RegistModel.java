@@ -3,21 +3,19 @@ package com.nkh.doctruyen.models.regist;
 import com.google.gson.annotations.SerializedName;
 
 public class RegistModel {
-    @SerializedName("success")
-    private Boolean success;
-    @SerializedName("messeage")
+    @SerializedName("status")
+    private boolean status;
+    @SerializedName("message")
     private String message;
-    @SerializedName("username")
-    private String username;
-    @SerializedName("id")
-    private String id;
+    @SerializedName("data")
+    private Data data;
 
-    public Boolean getSuccess() {
-        return success;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -28,19 +26,11 @@ public class RegistModel {
         this.message = message;
     }
 
-    public String getUsername() {
-        return username;
+    public Data getData() {
+        return data;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setData(Data data) {
+        this.data = data;
     }
 }

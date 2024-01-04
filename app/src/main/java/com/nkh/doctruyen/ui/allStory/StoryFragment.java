@@ -10,12 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.FragmentStoryBinding;
 import com.nkh.doctruyen.models.story.Story;
 import com.nkh.doctruyen.ui.home.HomeViewModel;
 import com.nkh.doctruyen.ui.home.HotStoryAdapter;
-
 import java.util.List;
 
 
@@ -24,11 +24,13 @@ public class StoryFragment extends Fragment {
     private FragmentStoryBinding binding;
     HotStoryAdapter adapter;
     private HomeViewModel viewModel;
+    PreferenceManager preferenceManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentStoryBinding.inflate(inflater, container, false);
+        preferenceManager = new PreferenceManager(requireActivity());
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         return binding.getRoot();
     }
@@ -51,8 +53,9 @@ public class StoryFragment extends Fragment {
            }
        });
 
-       viewModel.showRecommendStory();
-       viewModel.showNovelStory();
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+       viewModel.showRecommendStory(token);
+       viewModel.showNovelStory(token);
 
        setUpView();
 

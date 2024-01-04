@@ -6,7 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.api.ApiService;
+import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.models.checkFollow.CheckFollowModel;
 import com.nkh.doctruyen.models.clickfollow.ClickFollowModel;
 
@@ -25,8 +27,8 @@ public class CheckFollowViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void checkFollow(int userId ,int idTruyen){
-        ApiService.apiService.checkFollow(1,userId,idTruyen).enqueue(new Callback<CheckFollowModel>() {
+    public void checkFollow(String token,int userId ,int idTruyen){
+        ApiService.apiService.checkFollow("Bearer "+ token,1,userId,idTruyen).enqueue(new Callback<CheckFollowModel>() {
             @Override
             public void onResponse(Call<CheckFollowModel> call, Response<CheckFollowModel> response) {
                 if (response.body().getSuccess()==true){
@@ -44,8 +46,8 @@ public class CheckFollowViewModel extends AndroidViewModel {
         });
     }
 
-    public void clickFollow(int userId ,int idTruyen){
-        ApiService.apiService.clickFollow(2,userId,idTruyen).enqueue(new Callback<ClickFollowModel>() {
+    public void clickFollow(String token,int userId ,int idTruyen){
+        ApiService.apiService.clickFollow("Bearer "+ token,2,userId,idTruyen).enqueue(new Callback<ClickFollowModel>() {
             @Override
             public void onResponse(Call<ClickFollowModel> call, Response<ClickFollowModel> response) {
                 clickMessage.setValue(response.body().getSuccess());

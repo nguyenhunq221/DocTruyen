@@ -21,6 +21,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -49,7 +50,7 @@ public interface ApiService {
             .create(ApiService.class);
 
     @POST(ApiPath.REGISTER)
-    Call<RegistModel> regist(@Query("username") String username,
+    Call<RegistModel> regist(@Query("name") String username,
                              @Query("password") String password,
                              @Query("email") String email
     );
@@ -60,45 +61,63 @@ public interface ApiService {
     );
 
     @GET(ApiPath.STORY)
-    Call<StoryModel> Story(@Query("theloai") int theLoai
+    Call<StoryModel> Story(
+            @Header("Authorization") String token,
+            @Query("theloai") int theLoai
     );
 
     @GET(ApiPath.CHAPTER_CONTENT)
-    Call<ContentModel> getContent(@Query("idchuong") int idchuong
+    Call<ContentModel> getContent(
+            @Header("Authorization") String token,
+            @Query("idchuong") int idchuong
     );
 
     @GET(ApiPath.LIST_CHAPTER)
-    Call<ListChapterModel> getListChapter(@Query("idtruyen") int idtruyen
+    Call<ListChapterModel> getListChapter(
+            @Header("Authorization") String token,
+            @Query("idtruyen") int idtruyen
     );
 
     @GET(ApiPath.SEARCH)
-    Call<StoryModel> search(@Query("text") String text
+    Call<StoryModel> search(
+            @Header("Authorization") String token,
+            @Query("text") String text
     );
 
     @GET(ApiPath.FOLLOW)
-    Call<StoryModel> getListFollow(@Query("username") String username
+    Call<StoryModel> getListFollow(
+            @Header("Authorization") String token,
+            @Query("username") String username
     );
 
     @GET(ApiPath.CHECK_FOLLOW)
-    Call<CheckFollowModel> checkFollow(@Query("tt") int tt,
-                                       @Query("id_user") int idUser,
-                                       @Query("id_truyen") int idTruyen
+    Call<CheckFollowModel> checkFollow(
+            @Header("Authorization") String token,
+            @Query("tt") int tt,
+            @Query("id_user") int idUser,
+            @Query("id_truyen") int idTruyen
     );
 
     @GET(ApiPath.CHECK_FOLLOW)
-    Call<ClickFollowModel> clickFollow(@Query("tt") int tt,
-                                       @Query("id_user") int idUser,
-                                       @Query("id_truyen") int idTruyen
+    Call<ClickFollowModel> clickFollow(
+            @Header("Authorization") String token,
+            @Query("tt") int tt,
+            @Query("id_user") int idUser,
+            @Query("id_truyen") int idTruyen
     );
 
     @GET(ApiPath.COMMENT)
-    Call<CommentModel> getListComment(@Query("idtruyen") int idtruyen
+    Call<CommentModel> getListComment(
+            @Header("Authorization") String token,
+            @Query("idtruyen") int idtruyen
     );
 
-    @GET(ApiPath.ADD_COMMENT)
-    Call<AddCommentModel> addComment(@Query("id_user") int id_user,
-                                     @Query("id_truyen") int id_truyen,
-                                     @Query("noidung") String noidung,
-                                     @Query("id_cha") String id_cha
+    @POST(ApiPath.ADD_COMMENT)
+    Call<AddCommentModel> addComment(
+            @Header("Authorization") String token,
+            @Query("id_user") int id_user,
+            @Query("id_truyen") int id_truyen,
+            @Query("noidung") String noidung,
+            @Query("id_cha") String id_cha
     );
 }

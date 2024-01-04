@@ -45,7 +45,6 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
         Bundle bundle = getArguments();
         if (bundle != null) {
             Story story = (Story) getArguments().getSerializable("key");
-            Log.e("hung1", "date: " +story.getTentruyen() + story.getTrangthai() +story.getImage()+ story.getTheloai());
 
             tenTruyen = story.getTentruyen();
             tomTat = story.getTomtatnd();
@@ -65,6 +64,8 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
         super.onViewCreated(view, savedInstanceState);
         binding.textContent.setText(tomTat);
         binding.rate.setText(danhGia+"");
+
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
 
         viewModel.listComment.observe(getViewLifecycleOwner(), new Observer<List<Comment>>() {
             @Override
@@ -91,12 +92,12 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
             @Override
             public void onClick(View v) {
                 addComment();
-                viewModel.showComment(Integer.parseInt(id));
+                viewModel.showComment(token,Integer.parseInt(id));
                 binding.contentComment.setText("");
             }
         });
 
-        viewModel.showComment(Integer.parseInt(id));
+        viewModel.showComment(token,Integer.parseInt(id));
     }
 
     private void showListComment(List<Comment> commentList){
@@ -107,9 +108,10 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
 
     private void addComment(){
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
         String noidungComment = binding.contentComment.getText().toString();
         if (!TextUtils.isEmpty(noidungComment)){
-            viewModel.addComment(userId,Integer.parseInt(id),noidungComment,"");
+            viewModel.addComment(token,userId,Integer.parseInt(id),noidungComment,"");
         }
     }
 
@@ -135,10 +137,11 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
            public void onClick(View v) {
                String contentReply = edtNumber.getText().toString();
                int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
+               String token = preferenceManager.getString(Constant.PRE.saveToken);
                if (!TextUtils.isEmpty(contentReply)){
-                   viewModel.addComment(userId, Integer.parseInt(id),contentReply,comment.getId());
+                   viewModel.addComment(token,userId, Integer.parseInt(id),contentReply,comment.getId());
                    alertDialog.cancel();
-                   viewModel.showComment(Integer.parseInt(id));
+                   viewModel.showComment(token,Integer.parseInt(id));
                }
            }
        });

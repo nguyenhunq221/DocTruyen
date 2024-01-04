@@ -68,12 +68,12 @@ public class IntroduceStoryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Story story = (Story) intent.getSerializableExtra("story");
-        Log.e("hung1", "date: " + story.getNgaytao());
+        Log.e("hung1", "date: " + story.getId());
 
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
-        Log.e("hung", "userId: " + userId);
         int idTruyen = Integer.parseInt(story.getId());
-        viewModel.checkFollow(userId, idTruyen);
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+        viewModel.checkFollow(token,userId, idTruyen);
 
         viewModel.clickMessage.observe(this, new Observer<String>() {
             @Override
@@ -96,8 +96,8 @@ public class IntroduceStoryActivity extends AppCompatActivity {
                         .setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                viewModel.clickFollow(userId, idTruyen);
-                                viewModel.checkFollow(userId,idTruyen);
+                                viewModel.clickFollow(token,userId, idTruyen);
+                                viewModel.checkFollow(token,userId,idTruyen);
                             }
                         })
                         .show();
@@ -113,7 +113,12 @@ public class IntroduceStoryActivity extends AppCompatActivity {
         binding.storyName.setText(story.getTentruyen());
         binding.category.setText(story.getTheloai());
         binding.status.setText(story.getTrangthai());
-        binding.date.setText(story.getNgaytao());
+        if (story.getNgaytao()!= null){
+
+        }else {
+            binding.date.setText("");
+        }
+
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("key", story);
@@ -135,12 +140,12 @@ public class IntroduceStoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
         Intent intent = getIntent();
         Story story = (Story) intent.getSerializableExtra("story");
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
-        Log.e("hung", "userId: " + userId);
         int idTruyen = Integer.parseInt(story.getId());
-        viewModel.checkFollow(userId, idTruyen);
+        viewModel.checkFollow(token,userId, idTruyen);
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

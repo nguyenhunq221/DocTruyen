@@ -1,10 +1,15 @@
 package com.nkh.doctruyen.models.comment;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Comment {
+    @SerializedName("idtr")
     private String id;
+    @SerializedName("user_id")
     private String userid;
+    @SerializedName("truyen_id")
     private String truyenid;
     private String noidung;
     private List<ChildrenComment> traloibinhluan;

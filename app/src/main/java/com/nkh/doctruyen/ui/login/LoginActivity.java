@@ -72,6 +72,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.token.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                saveToken(s);
+            }
+        });
+
         setUpView();
     }
 
@@ -119,6 +126,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void saveIdUser(String userId){
         preferenceManager.putString(Constant.PRE.saveUserId,userId);
+    }
+
+    public void saveToken(String token){
+        preferenceManager.putString(Constant.PRE.saveToken,token);
     }
 
     @Override

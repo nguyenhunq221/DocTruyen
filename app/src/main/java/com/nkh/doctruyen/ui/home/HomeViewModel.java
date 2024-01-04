@@ -5,7 +5,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.api.ApiService;
+import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.models.story.Story;
 import com.nkh.doctruyen.models.story.StoryModel;
 import java.util.List;
@@ -26,49 +29,44 @@ public class HomeViewModel extends AndroidViewModel {
 
     MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
+
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void showStory(){
-        ApiService.apiService.Story(1).enqueue(new Callback<StoryModel>() {
+    public void showStory(String token){
+        ApiService.apiService.Story("Bearer "+ token,1).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-
-                Log.e("hung", "onResponse: "+response.body().getDanhsach() );
-                    listStory.setValue(response.body().getDanhsach());
+                Log.e("hung88", "onResponse: "+ call.request() );
+                 listStory.setValue(response.body().getDanhsach());
             }
-
             @Override
             public void onFailure(Call<StoryModel> call, Throwable t) {
-                Log.e("hung", "fail: "+t.getMessage());
                 errorMessage.setValue(t.getMessage());
             }
         });
     }
-    public void showTienHiepStory(){
-        ApiService.apiService.Story(4).enqueue(new Callback<StoryModel>() {
+    public void showTienHiepStory(String token){
+        ApiService.apiService.Story("Bearer "+ token,4).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-
-                Log.e("hung", "onResponse: "+response.body().getDanhsach() );
+                Log.e("hung88", "onResponse: "+ call.request());
                 listTextStory.setValue(response.body().getDanhsach());
             }
 
             @Override
             public void onFailure(Call<StoryModel> call, Throwable t) {
-                Log.e("hung", "fail: "+t.getMessage());
                 errorMessage.setValue(t.getMessage());
             }
         });
     }
 
-    public void showSlideStory(){
-        ApiService.apiService.Story(3).enqueue(new Callback<StoryModel>() {
+    public void showSlideStory(String token){
+        ApiService.apiService.Story("Bearer "+ token,3).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-
-                Log.e("hung", "onResponse: "+response.body().getDanhsach() );
                 listSlideStory.setValue(response.body().getDanhsach());
             }
 
@@ -80,35 +78,29 @@ public class HomeViewModel extends AndroidViewModel {
         });
     }
 
-    public void showRecommendStory(){
-        ApiService.apiService.Story(5).enqueue(new Callback<StoryModel>() {
+    public void showRecommendStory(String token){
+        ApiService.apiService.Story("Bearer "+ token,5).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-
-                Log.e("hung", "onResponse: "+response.body().getDanhsach() );
                 listRecommend.setValue(response.body().getDanhsach());
             }
 
             @Override
             public void onFailure(Call<StoryModel> call, Throwable t) {
-                Log.e("hung", "fail: "+t.getMessage());
                 errorMessage.setValue(t.getMessage());
             }
         });
     }
 
-    public void showNovelStory(){
-        ApiService.apiService.Story(2).enqueue(new Callback<StoryModel>() {
+    public void showNovelStory(String token){
+        ApiService.apiService.Story("Bearer "+ token,2).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-
-                Log.e("hung", "onResponse: "+response.body().getDanhsach() );
                 listNovel.setValue(response.body().getDanhsach());
             }
 
             @Override
             public void onFailure(Call<StoryModel> call, Throwable t) {
-                Log.e("hung", "fail: "+t.getMessage());
                 errorMessage.setValue(t.getMessage());
             }
         });

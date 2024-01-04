@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.ActivitySearchStoryBinding;
 import com.nkh.doctruyen.models.story.Story;
@@ -20,12 +22,14 @@ public class SearchStoryActivity extends AppCompatActivity {
     private ActivitySearchStoryBinding binding;
     private SeacrhViewModel viewModel;
     HotStoryAdapter adapter;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchStoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        preferenceManager = new PreferenceManager(this);
         viewModel = new ViewModelProvider(SearchStoryActivity.this).get(SeacrhViewModel.class);
         viewModel.listSearchStory.observe(SearchStoryActivity.this, new Observer<List<Story>>() {
             @Override
@@ -42,10 +46,11 @@ public class SearchStoryActivity extends AppCompatActivity {
             }
         });
 
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+
         Intent intent = getIntent();
         String textSearch = intent.getStringExtra(Constant.INTENT.INTENT_SEARCH);
-        Log.e("hung1", "text1: "+textSearch );
-        viewModel.showStory(textSearch);
+        viewModel.showStory(token,textSearch);
 
         viewModel.errorMessage.observe(SearchStoryActivity.this, new Observer<String>() {
             @Override
@@ -54,11 +59,11 @@ public class SearchStoryActivity extends AppCompatActivity {
             }
         });
 
-        setUpView();
+        setUpView(token);
 
     }
 
-    private void setUpView(){
+    private void setUpView(String token){
         binding.topAppBarMenu.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,8 +77,7 @@ public class SearchStoryActivity extends AppCompatActivity {
                     public void onRefresh() {
                         Intent intent = getIntent();
                         String textSearch = intent.getStringExtra(Constant.INTENT.INTENT_SEARCH);
-                        Log.e("hung1", "text1: "+textSearch );
-                        viewModel.showStory(textSearch);
+                        viewModel.showStory(token,textSearch);
                         binding.swiperefresh.setRefreshing(false);
                     }
                 }

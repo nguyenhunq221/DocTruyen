@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.nkh.doctruyen.Utils.PreferenceManager;
+import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.FragmentHomeBinding;
 import com.nkh.doctruyen.models.story.Story;
 import com.smarteist.autoimageslider.SliderView;
@@ -23,11 +25,14 @@ public class HomeFragment extends Fragment  {
     HotStoryAdapter adapter;
     private HomeViewModel viewModel;
 
+    PreferenceManager preferenceManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        preferenceManager = new PreferenceManager(requireActivity());
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -62,9 +67,11 @@ public class HomeFragment extends Fragment  {
             }
         });
 
-        viewModel.showStory();
-        viewModel.showTienHiepStory();
-        viewModel.showSlideStory();
+        String token = preferenceManager.getString(Constant.PRE.saveToken);
+
+        viewModel.showStory(token);
+        viewModel.showTienHiepStory(token);
+        viewModel.showSlideStory(token);
 
     }
 

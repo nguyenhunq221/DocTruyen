@@ -5,7 +5,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.api.ApiService;
+import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.models.listChapter.Chapter;
 import com.nkh.doctruyen.models.listChapter.ListChapterModel;
 import java.util.List;
@@ -23,11 +26,10 @@ public class ListChapterViewmodel extends AndroidViewModel {
         super(application);
     }
 
-    public void showChapter(int id){
-        ApiService.apiService.getListChapter(id).enqueue(new Callback<ListChapterModel>() {
+    public void showChapter(String token,int id){
+        ApiService.apiService.getListChapter("Bearer "+ token,id).enqueue(new Callback<ListChapterModel>() {
             @Override
             public void onResponse(Call<ListChapterModel> call, Response<ListChapterModel> response) {
-                Log.e("hung999", "onResponse: "+ call.request());
                 listChapter.setValue(response.body().getDanhsach());
             }
 

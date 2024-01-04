@@ -18,22 +18,19 @@ public class FavorViewModel extends AndroidViewModel {
     MutableLiveData<List<Story>> listFollowStory = new MutableLiveData<>();
     MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
-
     public FavorViewModel(@NonNull Application application) {
         super(application);
     }
-    public void showStoryFollow(String username){
-        ApiService.apiService.getListFollow(username).enqueue(new Callback<StoryModel>() {
+    public void showStoryFollow(String token,String username){
+        ApiService.apiService.getListFollow("Bearer "+ token,username).enqueue(new Callback<StoryModel>() {
             @Override
             public void onResponse(Call<StoryModel> call, Response<StoryModel> response) {
-                Log.e("hung1", "request: "+call.request());
-                Log.e("hung1", "onResponse: "+response.body().getDanhsach());
+
                 listFollowStory.setValue(response.body().getDanhsach());
             }
 
             @Override
             public void onFailure(Call<StoryModel> call, Throwable t) {
-                Log.e("hung1", "fail: "+t.getMessage());
                 errorMessage.setValue(t.getMessage());
             }
         });

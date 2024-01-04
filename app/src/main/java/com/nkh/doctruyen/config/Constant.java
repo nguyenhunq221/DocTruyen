@@ -14,6 +14,7 @@ public class Constant {
         public static final String saveLogin = "hasLogIn";
 
         public static final String saveUserName = "username";
+        public static final String saveToken = "token";
         public static final String saveUserId = "userId";
 
     }

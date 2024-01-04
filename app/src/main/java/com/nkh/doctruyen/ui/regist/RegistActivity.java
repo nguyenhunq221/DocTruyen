@@ -10,18 +10,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.nkh.doctruyen.R;
 import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.ActivityRegistBinding;
 import com.nkh.doctruyen.ui.MainActivity;
-import com.nkh.doctruyen.ui.login.LoginActivity;
 
 public class RegistActivity extends AppCompatActivity {
     private ActivityRegistBinding binding;
@@ -62,6 +59,13 @@ public class RegistActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 Snackbar.make(binding.getRoot(),s,Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.token.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                saveToken(s);
             }
         });
 
@@ -119,6 +123,10 @@ public class RegistActivity extends AppCompatActivity {
 
     public void saveUserName(String userName){
         preferenceManager.putString(Constant.PRE.saveUserName,userName);
+    }
+
+    public void saveToken(String token){
+        preferenceManager.putString(Constant.PRE.saveToken,token);
     }
     public void saveIdUser(String userId){
         preferenceManager.putString(Constant.PRE.saveUserId,userId);

@@ -1,6 +1,8 @@
 package com.nkh.doctruyen.ui.login;
 
 import android.app.Application;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
@@ -16,6 +18,7 @@ public class LoginViewModel extends AndroidViewModel {
     MutableLiveData<String> error = new MutableLiveData<>();
     MutableLiveData<String> username = new MutableLiveData<>();
     MutableLiveData<String> userId = new MutableLiveData<>();
+    MutableLiveData<String> token = new MutableLiveData<>();
 
     public LoginViewModel(@NonNull Application application) {
         super(application);
@@ -25,12 +28,13 @@ public class LoginViewModel extends AndroidViewModel {
         ApiService.apiService.login(userName,password).enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
-                if (response.body().getSuccess()==true){
+                if (response.body().isStatus() == true){
                     success.setValue(true);
-                    username.setValue(response.body().getUsername());
-                    userId.setValue(response.body().getUserId());
-                }else if (response.body().getSuccess() == false){
-                    errorMessage.setValue("Login fail");
+                    username.setValue(response.body().getData().getUser().getName());
+                    userId.setValue(response.body().getData().getUser().getId());
+                    token.setValue(response.body().getData().getToken());
+                }else {
+                    errorMessage.setValue(response.body().getMessage());
                 }
             }
 
