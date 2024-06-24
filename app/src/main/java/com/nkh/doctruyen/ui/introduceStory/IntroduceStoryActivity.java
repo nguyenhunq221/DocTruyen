@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.nkh.doctruyen.R;
 import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Config;
@@ -30,6 +31,8 @@ public class IntroduceStoryActivity extends AppCompatActivity {
     private TabAdapter adapter;
     CheckFollowViewModel viewModel;
     private static String title = "";
+
+    int idTruyen;
 
     PreferenceManager preferenceManager;
 
@@ -67,11 +70,18 @@ public class IntroduceStoryActivity extends AppCompatActivity {
         binding.tabLayout.setupWithViewPager(binding.viewPager);
 
         Intent intent = getIntent();
-        Story story = (Story) intent.getSerializableExtra("story");
-        Log.e("hung1", "date: " + story.getId());
+//        Story story = (Story) intent.getSerializableExtra("story");
+        String storyInfo = intent.getStringExtra("story");
+        Log.e("hung99", "storyInfoReceive: "+ storyInfo );
+        Gson gson = new Gson();
+        Story story = gson.fromJson(storyInfo, Story.class);
 
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
-        int idTruyen = Integer.parseInt(story.getId());
+        if (story.getId() != null){
+             idTruyen = Integer.parseInt(story.getId());
+        }else {
+            idTruyen = 38;
+        }
         String token = preferenceManager.getString(Constant.PRE.saveToken);
         viewModel.checkFollow(token,userId, idTruyen);
 
@@ -142,9 +152,17 @@ public class IntroduceStoryActivity extends AppCompatActivity {
 
         String token = preferenceManager.getString(Constant.PRE.saveToken);
         Intent intent = getIntent();
-        Story story = (Story) intent.getSerializableExtra("story");
+        String storyInfo = intent.getStringExtra("story");
+        Gson gson = new Gson();
+        Story story = gson.fromJson(storyInfo, Story.class);
+//        Story story = (Story) intent.getSerializableExtra("story");
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
-        int idTruyen = Integer.parseInt(story.getId());
+        if (story.getId() != null){
+            idTruyen = Integer.parseInt(story.getId());
+        }else {
+            idTruyen = 38;
+        }
+//        int idTruyen = Integer.parseInt(story.getId());
         viewModel.checkFollow(token,userId, idTruyen);
     }
     @Override

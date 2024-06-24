@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.nkh.doctruyen.config.Config;
 import com.nkh.doctruyen.R;
 import com.nkh.doctruyen.models.story.Story;
@@ -42,6 +43,7 @@ public class HotStoryAdapter extends RecyclerView.Adapter<HotStoryAdapter.HotSto
         holder.storyName.setText(story.getTentruyen());
 
         String urlImage = Config.URL_IMAGE + story.getImage();
+        String storyInfo = new Gson().toJson(story);
 
         Glide.with(context)
                 .load(urlImage)
@@ -52,7 +54,9 @@ public class HotStoryAdapter extends RecyclerView.Adapter<HotStoryAdapter.HotSto
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, IntroduceStoryActivity.class);
-                intent.putExtra("story",story);
+//                intent.putExtra("story",story);
+                Log.e("hung99", "storyInfo: "+ storyInfo );
+                intent.putExtra("story",storyInfo);
                 context.startActivity(intent);
             }
         });

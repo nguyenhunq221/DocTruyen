@@ -31,9 +31,9 @@ public interface ApiService {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS) // Thời gian chờ kết nối
-                .readTimeout(30, TimeUnit.SECONDS) // Thời gian chờ đọc dữ liệu
-                .writeTimeout(30, TimeUnit.SECONDS) // Thời gian chờ ghi dữ liệu
+                .connectTimeout(100, TimeUnit.SECONDS) // Thời gian chờ kết nối
+                .readTimeout(100, TimeUnit.SECONDS) // Thời gian chờ đọc dữ liệu
+                .writeTimeout(100, TimeUnit.SECONDS) // Thời gian chờ ghi dữ liệu
                 .addInterceptor(interceptor)
                 .build();
         return client;
