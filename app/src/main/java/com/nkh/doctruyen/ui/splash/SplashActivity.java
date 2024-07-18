@@ -20,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        getSupportActionBar().hide();
 
         boolean hasLogIn = preferenceManager.getBoolean(Constant.PRE.saveLogin);
 
