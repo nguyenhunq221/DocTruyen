@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setUpView();
     }
 
-    //test
-
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
