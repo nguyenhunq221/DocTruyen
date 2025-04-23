@@ -15,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.FragmentHomeBinding;
+import com.nkh.doctruyen.imageslider.SliderView;
 import com.nkh.doctruyen.models.story.Story;
-import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 

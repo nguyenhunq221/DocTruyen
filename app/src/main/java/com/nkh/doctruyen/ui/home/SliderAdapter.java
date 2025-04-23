@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.nkh.doctruyen.config.Config;
 import com.nkh.doctruyen.R;
+import com.nkh.doctruyen.imageslider.SliderViewAdapter;
 import com.nkh.doctruyen.models.story.Story;
 import com.nkh.doctruyen.ui.introduceStory.IntroduceStoryActivity;
-import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.List;
 

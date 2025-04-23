@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ui.home.HomeFragment"
-    >
+    tools:context="ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,7 +55,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginRight="@dimen/_10sdp"/>
 
-        <com.smarteist.autoimageslider.SliderView
+        <com.nkh.doctruyen.imageslider.SliderView
             android:id="@+id/slider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
@@ -86,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/fire"
-            app:layout_constraintTop_toBottomOf="@id/slider"
+            app:layout_constraintTop_toBottomOf="parent"
             android:text="@string/hot_story"
             android:textStyle="bold"
             android:textSize="@dimen/_16ssp"
@@ -98,8 +97,8 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:src="@drawable/ic_fire"
-            app:layout_constraintStart_toStartOf="@id/slider"
-            app:layout_constraintTop_toBottomOf="@id/slider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
             android:layout_marginTop="@dimen/_5sdp"
             />
 
@@ -109,8 +108,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/fire"
             android:padding="@dimen/_4sdp"
-            app:layout_constraintStart_toStartOf="@id/slider"
-            app:layout_constraintEnd_toEndOf="@id/slider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="horizontal"
             />
@@ -132,7 +131,7 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:src="@drawable/ic_sword"
-            app:layout_constraintStart_toStartOf="@id/slider"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rcv_hot_story"
             />
 
@@ -142,8 +141,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_story"
             android:padding="@dimen/_4sdp"
-            app:layout_constraintStart_toStartOf="@id/slider"
-            app:layout_constraintEnd_toEndOf="@id/slider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:orientation="horizontal"
             app:spanCount="2"
