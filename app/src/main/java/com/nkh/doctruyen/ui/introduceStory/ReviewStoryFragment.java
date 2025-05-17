@@ -97,7 +97,9 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
             }
         });
 
-        viewModel.showComment(token,Integer.parseInt(id));
+        if (id != null && !id.isEmpty()) {
+            viewModel.showComment(token, Integer.parseInt(id));
+        }
     }
 
     private void showListComment(List<Comment> commentList){
@@ -124,7 +126,7 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
         TextView userCmt = view1.findViewById(R.id.text_name);
         EditText edtNumber = view1.findViewById(R.id.reply);
 
-        userCmt.setText(getString(R.string.reply_title) + comment.getUserid());
+        userCmt.setText(getString(R.string.reply_title) +" "+ comment.getUserid());
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,7 +151,7 @@ public class ReviewStoryFragment extends Fragment implements CommentAdapter.Item
         alertDialog.setContentView(view1);
         alertDialog.getWindow().getDecorView().setBackgroundResource(R.drawable.popup_background);
         Window window = alertDialog.getWindow();
-        window.setLayout(1000, 600);
+        window.setLayout(1000, 700);
         alertDialog.show();
         alertDialog.setCancelable(true);
     }

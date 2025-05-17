@@ -75,6 +75,7 @@ public class IntroduceStoryActivity extends AppCompatActivity {
         Log.e("hung99", "storyInfoReceive: "+ storyInfo );
         Gson gson = new Gson();
         Story story = gson.fromJson(storyInfo, Story.class);
+        Log.e("hung99", "story receive Id: " + story.getId() );
 
         int userId = Integer.parseInt(preferenceManager.getString(Constant.PRE.saveUserId));
         if (story.getId() != null){
@@ -124,7 +125,7 @@ public class IntroduceStoryActivity extends AppCompatActivity {
         binding.category.setText(story.getTheloai());
         binding.status.setText(story.getTrangthai());
         if (story.getNgaytao()!= null){
-
+            binding.date.setText(story.getNgaytao());
         }else {
             binding.date.setText("");
         }
@@ -132,17 +133,24 @@ public class IntroduceStoryActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("key", story);
-        ReviewStoryFragment fragment = new ReviewStoryFragment();
-        fragment.setArguments(bundle);
+        ReviewStoryFragment reviewFragment = new ReviewStoryFragment();
+        reviewFragment.setArguments(bundle);
 
         ListChapterFragment listChapterFragment = new ListChapterFragment();
         listChapterFragment.setArguments(bundle);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.viewPager, fragment);
-        fragmentTransaction.add(R.id.viewPager, listChapterFragment);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.viewPager, fragment);
+//        fragmentTransaction.add(R.id.viewPager, listChapterFragment);
+//        fragmentTransaction.commit();
+
+        adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addFragment(reviewFragment, getString(R.string.introduce_story));
+        adapter.addFragment(listChapterFragment, getString(R.string.introduce_listChapter));
+
+        binding.viewPager.setAdapter(adapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
 
     }
 

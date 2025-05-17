@@ -25,7 +25,7 @@ public class ListChapterFragment extends Fragment {
     ListChapterAdapter adapter;
     private ListChapterViewmodel viewModel;
     PreferenceManager preferenceManager;
-    private static int id;
+    private int id;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

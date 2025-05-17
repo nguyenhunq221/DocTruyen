@@ -2,11 +2,14 @@ package com.nkh.doctruyen.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.nkh.doctruyen.config.Config;
 import com.nkh.doctruyen.R;
 import com.nkh.doctruyen.imageslider.SliderViewAdapter;
@@ -36,6 +39,8 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
         Story story = images.get(position);
         String urlImage = Config.URL_IMAGE + story.getImage();
+        String storyInfo = new Gson().toJson(story);
+
 
         Glide.with(context)
                 .load(urlImage)
@@ -46,7 +51,8 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, IntroduceStoryActivity.class);
-                intent.putExtra("story",story);
+                Log.e("hung99", "storyInfoSlide: " + storyInfo);
+                intent.putExtra("story", storyInfo);
                 context.startActivity(intent);
             }
         });

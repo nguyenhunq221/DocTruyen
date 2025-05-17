@@ -1,11 +1,11 @@
-package com.nkh.doctruyen.models.story;
+package com.nkh.doctruyen.models.story.storyfollow;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Story implements Serializable {
-    @SerializedName("id")
+public class StoryFollow implements Serializable {
+    @SerializedName("idtruyen")
     private String id;
     @SerializedName("tentruyen")
     private String tentruyen;
@@ -19,14 +19,12 @@ public class Story implements Serializable {
     private double danhgia;
     @SerializedName("image")
     private String image;
-    @SerializedName("trangthai")
+    @SerializedName("trangthaitext")
     private String trangthai;
     @SerializedName("ngaytao")
     private String ngaytao;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() {return id;}
 
     public void setId(String id) {
         this.id = id;

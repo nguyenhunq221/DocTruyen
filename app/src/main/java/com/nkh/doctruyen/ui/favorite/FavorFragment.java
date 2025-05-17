@@ -13,9 +13,10 @@ import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.FragmentFavorBinding;
 import com.nkh.doctruyen.models.story.Story;
+import com.nkh.doctruyen.models.story.storyfollow.StoryFollow;
 import com.nkh.doctruyen.ui.home.HotStoryAdapter;
+import java.util.ArrayList;
 import java.util.List;
-
 
 public class FavorFragment extends Fragment {
     private FragmentFavorBinding binding;
@@ -33,9 +34,9 @@ public class FavorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         preferenceManager = new PreferenceManager(requireActivity());
-        viewModel.listFollowStory.observe(getViewLifecycleOwner(), new Observer<List<Story>>() {
+        viewModel.listFollowStory.observe(getViewLifecycleOwner(), new Observer<List<StoryFollow>>() {
             @Override
-            public void onChanged(List<Story> stories) {
+            public void onChanged(List<StoryFollow> stories) {
                 showListFollow(stories);
             }
         });
@@ -46,16 +47,39 @@ public class FavorFragment extends Fragment {
         viewModel.showStoryFollow(token,userName);
     }
 
-    private void showListFollow(List<Story> stories) {
+    private void showListFollow(List<StoryFollow> stories) {
         if (stories.isEmpty()){
             binding.noResult1.setVisibility(View.VISIBLE);
             binding.noResult.setVisibility(View.VISIBLE);
             binding.progressBar.setVisibility(View.GONE);
         }else {
-            adapter = new HotStoryAdapter(stories, requireActivity());
+            List<Story> convertedList = convertToStoryList(stories);
+            adapter = new HotStoryAdapter(convertedList, requireActivity());
             binding.rcvFollow.setAdapter(adapter);
             binding.progressBar.setVisibility(View.GONE);
         }
+    }
+
+    private List<Story> convertToStoryList(List<StoryFollow> followList) {
+        List<Story> storyList = new ArrayList<>();
+        for (StoryFollow follow : followList) {
+            Story story = new Story();
+            story.setId(follow.getId());  // Map idtruyen vào id
+            story.setTentruyen(follow.getTentruyen());
+            story.setTomtatnd(follow.getTomtatnd());
+            story.setChuongmoi(follow.getChuongmoi());
+            if (follow.getTheloai() == null || follow.getTheloai().isEmpty()){
+                story.setTheloai("Truyện vui");
+            }else {
+                story.setTheloai(follow.getTheloai());
+            }
+            story.setDanhgia(follow.getDanhgia());
+            story.setImage(follow.getImage());
+            story.setTrangthai(follow.getTrangthai());
+            story.setNgaytao(follow.getNgaytao());
+            storyList.add(story);
+        }
+        return storyList;
     }
 
 }

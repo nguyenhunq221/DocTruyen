@@ -1,13 +1,13 @@
 package com.nkh.doctruyen.ui.login;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.nkh.doctruyen.api.ApiService;
 import com.nkh.doctruyen.models.Login.LoginModel;
+import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,17 +24,26 @@ public class LoginViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void login(String userName,String password){
-        ApiService.apiService.login(userName,password).enqueue(new Callback<LoginModel>() {
+    public void login(String userName, String password) {
+        ApiService.apiService.login(userName, password).enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
-                if (response.body().isStatus() == true){
-                    success.setValue(true);
-                    username.setValue(response.body().getData().getUser().getName());
-                    userId.setValue(response.body().getData().getUser().getId());
-                    token.setValue(response.body().getData().getToken());
-                }else {
-                    errorMessage.setValue(response.body().getMessage());
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().isStatus()) {
+                        success.setValue(true);
+                        username.setValue(response.body().getData().getUser().getName());
+                        userId.setValue(response.body().getData().getUser().getId());
+                        token.setValue(response.body().getData().getToken());
+                    } else {
+                        errorMessage.setValue(response.body().getMessage());
+                    }
+                } else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        errorMessage.setValue("Lỗi đăng nhập: " + errorBody);
+                    } catch (IOException e) {
+                        errorMessage.setValue("Lỗi không xác định khi xử lý lỗi");
+                    }
                 }
             }
 

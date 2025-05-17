@@ -12,6 +12,8 @@ import com.nkh.doctruyen.models.content.ContentModel;
 import com.nkh.doctruyen.models.listChapter.ListChapterModel;
 import com.nkh.doctruyen.models.regist.RegistModel;
 import com.nkh.doctruyen.models.story.StoryModel;
+import com.nkh.doctruyen.models.story.storyfollow.StoryFollow;
+import com.nkh.doctruyen.models.story.storyfollow.StoryModelFollow;
 
 import java.util.concurrent.TimeUnit;
 
@@ -79,13 +81,13 @@ public interface ApiService {
     );
 
     @GET(ApiPath.SEARCH)
-    Call<StoryModel> search(
+    Call<StoryModelFollow> search(
             @Header("Authorization") String token,
             @Query("text") String text
     );
 
     @GET(ApiPath.FOLLOW)
-    Call<StoryModel> getListFollow(
+    Call<StoryModelFollow> getListFollow(
             @Header("Authorization") String token,
             @Query("username") String username
     );

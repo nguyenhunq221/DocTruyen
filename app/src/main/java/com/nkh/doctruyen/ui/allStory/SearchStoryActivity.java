@@ -14,13 +14,15 @@ import com.nkh.doctruyen.Utils.PreferenceManager;
 import com.nkh.doctruyen.config.Constant;
 import com.nkh.doctruyen.databinding.ActivitySearchStoryBinding;
 import com.nkh.doctruyen.models.story.Story;
+import com.nkh.doctruyen.models.story.storyfollow.StoryFollow;
 import com.nkh.doctruyen.ui.home.HotStoryAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchStoryActivity extends AppCompatActivity {
     private ActivitySearchStoryBinding binding;
-    private SeacrhViewModel viewModel;
+    private SearchViewModel viewModel;
     HotStoryAdapter adapter;
     PreferenceManager preferenceManager;
 
@@ -30,16 +32,18 @@ public class SearchStoryActivity extends AppCompatActivity {
         binding = ActivitySearchStoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         preferenceManager = new PreferenceManager(this);
-        viewModel = new ViewModelProvider(SearchStoryActivity.this).get(SeacrhViewModel.class);
-        viewModel.listSearchStory.observe(SearchStoryActivity.this, new Observer<List<Story>>() {
+        viewModel = new ViewModelProvider(SearchStoryActivity.this).get(SearchViewModel.class);
+        viewModel.listSearchStory.observe(SearchStoryActivity.this, new Observer<List<StoryFollow>>() {
             @Override
-            public void onChanged(List<Story> stories) {
+            public void onChanged(List<StoryFollow> stories) {
                 if (stories.isEmpty()){
                     binding.noResult1.setVisibility(View.VISIBLE);
                     binding.noResult.setVisibility(View.VISIBLE);
                     binding.progressBar.setVisibility(View.GONE);
                 }else {
-                    adapter = new HotStoryAdapter(stories,SearchStoryActivity.this);
+                    Log.e("hung99", "story prepare: " + stories.get(0).getId());
+                    List<Story> convertedList = convertToStoryList(stories);
+                    adapter = new HotStoryAdapter(convertedList,SearchStoryActivity.this);
                     binding.rcvSearchStory.setAdapter(adapter);
                     binding.progressBar.setVisibility(View.GONE);
                 }
@@ -50,7 +54,7 @@ public class SearchStoryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String textSearch = intent.getStringExtra(Constant.INTENT.INTENT_SEARCH);
-        viewModel.showStory(token,textSearch);
+        viewModel.showSearchStory(token,textSearch);
 
         viewModel.errorMessage.observe(SearchStoryActivity.this, new Observer<String>() {
             @Override
@@ -61,6 +65,28 @@ public class SearchStoryActivity extends AppCompatActivity {
 
         setUpView(token);
 
+    }
+
+    private List<Story> convertToStoryList(List<StoryFollow> followList) {
+        List<Story> storyList = new ArrayList<>();
+        for (StoryFollow follow : followList) {
+            Story story = new Story();
+            story.setId(follow.getId());  // Map idtruyen vào id
+            story.setTentruyen(follow.getTentruyen());
+            story.setTomtatnd(follow.getTomtatnd());
+            story.setChuongmoi(follow.getChuongmoi());
+            if (follow.getTheloai() == null || follow.getTheloai().isEmpty()){
+                story.setTheloai("Truyện vui");
+            }else {
+                story.setTheloai(follow.getTheloai());
+            }
+            story.setDanhgia(follow.getDanhgia());
+            story.setImage(follow.getImage());
+            story.setTrangthai(follow.getTrangthai());
+            story.setNgaytao(follow.getNgaytao());
+            storyList.add(story);
+        }
+        return storyList;
     }
 
     private void setUpView(String token){
@@ -77,7 +103,7 @@ public class SearchStoryActivity extends AppCompatActivity {
                     public void onRefresh() {
                         Intent intent = getIntent();
                         String textSearch = intent.getStringExtra(Constant.INTENT.INTENT_SEARCH);
-                        viewModel.showStory(token,textSearch);
+                        viewModel.showSearchStory(token,textSearch);
                         binding.swiperefresh.setRefreshing(false);
                     }
                 }

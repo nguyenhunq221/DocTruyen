@@ -1,4 +1,4 @@
-package com.nkh.doctruyen.ui.favorite;
+package com.nkh.doctruyen.ui.allStory;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -7,24 +7,26 @@ import androidx.lifecycle.MutableLiveData;
 import com.nkh.doctruyen.api.ApiService;
 import com.nkh.doctruyen.models.story.storyfollow.StoryFollow;
 import com.nkh.doctruyen.models.story.storyfollow.StoryModelFollow;
+
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavorViewModel extends AndroidViewModel {
+public class SearchViewModel extends AndroidViewModel {
 
-    MutableLiveData<List<StoryFollow>> listFollowStory = new MutableLiveData<>();
+    MutableLiveData<List<StoryFollow>> listSearchStory = new MutableLiveData<>();
     MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
-    public FavorViewModel(@NonNull Application application) {
+    public SearchViewModel(@NonNull Application application) {
         super(application);
     }
-    public void showStoryFollow(String token,String username){
-        ApiService.apiService.getListFollow("Bearer "+ token,username).enqueue(new Callback<StoryModelFollow>() {
+
+    public void showSearchStory(String token,String textSearch){
+        ApiService.apiService.search("Bearer "+ token,textSearch).enqueue(new Callback<StoryModelFollow>() {
             @Override
             public void onResponse(Call<StoryModelFollow> call, Response<StoryModelFollow> response) {
-                listFollowStory.setValue(response.body().getDanhsach());
+                listSearchStory.setValue(response.body().getDanhsach());
             }
 
             @Override
